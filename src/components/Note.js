@@ -4,77 +4,70 @@ const Note = class extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      titleEditing: false,
-      contentEditing: false,
+      isEditing: false,
       title: props.note.title,
       content: props.note.content,
     };
   }
-  toggleTitleEditing = () => {
-    this.setState(prev => ({ titleEditing: !prev.titleEditing }));
-  };
-  toggleContentEditing = () => {
-    this.setState(prev => ({ contentEditing: !prev.contentEditing }));
-  };
+
+  toggleEditing = () => {
+    this.setState(prev => ({ isEditing: !prev.isEditing }));
+  }
+
   titleChange = event => {
     this.setState({
       title: event.target.value,
     });
   };
+
   contentChange = event => {
     this.setState({
       content: event.target.value,
     });
   };
-  saveTitle = () => {
+
+  saveNote = () => {
     this.props.onSaveTitle(this.props.note.id, this.state.title);
-    this.toggleTitleEditing();
-  };
-  saveContent = () => {
     this.props.onSaveContent(this.props.note.id, this.state.content);
-    this.toggleContentEditing();
+    this.toggleEditing();
   };
 
   render() {
     return (
       <section>
         <hr />
-        {/* 파싱해서 YYYY-mm-DD로 바꾸기 */}
         <time>{this.props.note.createdAt}</time>
-        {/* 수정 하나로 합치기 */}
-        {this.state.titleEditing ? (
-          <input
-            type="text"
-            value={this.state.title}
-            onChange={this.titleChange}
-          />
+        {/* 수정 버튼 누르면 input창, 아니면 text  */}
+        {this.state.isEditing ? (
+          <div>
+            <input
+              type="text"
+              value={this.state.title}
+              onChange={this.titleChange}
+            />
+            <textarea
+              value={this.state.content}
+              onChange={this.contentChange}
+            ></textarea>
+          </div>
         ) : (
-          <h2>{this.props.note.title}</h2>
+          <div>
+            <p>{this.props.note.content}</p>
+            <h2>{this.props.note.title}</h2>
+          </div>
         )}
-        {this.state.contentEditing ? (
-          <textarea
-            value={this.state.content}
-            onChange={this.contentChange}
-          ></textarea>
+        {/* 저장 / 수정 버튼 */}
+        {this.state.isEditing ? (
+          <button onClick={this.saveNote}>저장</button>
         ) : (
-          <p>{this.props.note.content}</p>
-        )}
-        {this.state.titleEditing ? (
-          <button onClick={this.saveTitle}>제목 저장</button>
-        ) : (
-          <button onClick={this.toggleTitleEditing}>제목 수정</button>
-        )}
-        {this.state.contentEditing ? (
-          <button onClick={this.saveContent}>내용 저장</button>
-        ) : (
-          <button onClick={this.toggleContentEditing}>내용 수정</button>
+          <button onClick={this.toggleEditing}>수정</button>
         )}
         <button
           onClick={this.props.onDeleteClick.bind(this, this.props.note.id)}
         >
           삭제
         </button>
-      </section>
+      </section >
     );
   }
 };

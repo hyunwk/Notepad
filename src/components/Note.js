@@ -37,6 +37,12 @@ const Note = class extends Component {
       <section>
         <hr />
         <time>{this.props.note.createdAt}</time>
+        {/* 체크박스 */}
+        <input type="checkbox"
+          checked={this.props.note.checked}
+          onChange={this.props.onToggleCheck.bind(this, this.props.note.id)}>
+        </input>
+
         {/* 수정 버튼 누르면 input창, 아니면 text  */}
         {this.state.isEditing ? (
           <div>

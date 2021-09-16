@@ -24,15 +24,26 @@ const App = class extends React.Component {
           title: newTitle,
           content: newContent,
           createdAt: moment().format('YY년 MM월 DD일 HH:mm:ss'),
+          checked: false,
         },
       ],
     });
   };
+
+  toggleCheck = id => {
+    this.setState(prevState => ({
+      notes: prevState.notes.map(note =>
+        note.id === id ? ((note.checked = !note.checked), note) : note,
+      ),
+    }));
+  };
+
   deleteNote = id => {
     this.setState(prevState => ({
       notes: prevState.notes.filter(note => note.id !== id),
     }));
   };
+
   saveTitle = (id, title) => {
     this.setState(({ notes }) => ({
       notes: notes.map(note =>
@@ -40,6 +51,7 @@ const App = class extends React.Component {
       ),
     }));
   };
+
   saveContent = (id, content) => {
     this.setState(({ notes }) => ({
       notes: notes.map(note =>
@@ -56,7 +68,8 @@ const App = class extends React.Component {
         <AddNoteBox notes={this.state.notes} onAddNote={this.addNote} />
         <Notes
           notes={this.state.notes}
-          deleteNote={this.deleteNote}
+          onToggleCheck={this.toggleCheck}
+          onDeleteNote={this.deleteNote}
           onSaveTitle={this.saveTitle}
           onSaveContent={this.saveContent}
         />

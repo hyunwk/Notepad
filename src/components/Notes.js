@@ -10,7 +10,8 @@ const Notes = class extends React.Component {
             <Note
               key={note.id}
               note={note}
-              onDeleteClick={this.props.deleteNote}
+              onToggleCheck={this.props.onToggleCheck}
+              onDeleteClick={this.props.onDeleteNote}
               onSaveTitle={this.props.onSaveTitle}
               onSaveContent={this.props.onSaveContent}
             />

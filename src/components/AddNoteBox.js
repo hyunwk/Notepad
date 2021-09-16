@@ -21,6 +21,10 @@ const AddNoteBox = class extends react.Component {
     });
   };
 
+  postNote = () => {
+    this.props.onAddNote(this.state.title, this.state.content);
+  }
+
   render() {
     return (
       <div>
@@ -40,7 +44,7 @@ const AddNoteBox = class extends react.Component {
             onChange={this.contentChange}
           ></textarea>
         </label>
-        <button onClick={this.props.onAddNote}>Add New Note</button>
+        <button onClick={this.postNote}>Add New Note</button>
       </div>
     );
   }

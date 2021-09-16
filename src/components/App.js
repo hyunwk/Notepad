@@ -12,14 +12,17 @@ const App = class extends React.Component {
     };
   }
 
-  addNote = () => {
+  addNote = (title, content) => {
+    console.log(title, content);
     this.setState({
       notes: [
         ...this.state.notes,
         {
           id: this.state.notes.length + 1,
-          title: this.state.title,
-          content: this.state.content,
+          title: title,
+          content: content,
+          // title: this.state.title,
+          // content: this.state.content,
           createdAt: new Date().toString(),
         },
       ],

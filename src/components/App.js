@@ -1,6 +1,8 @@
 import React from 'react';
 import Notes from './Notes';
 import AddNoteBox from './AddNoteBox';
+import moment from 'moment';
+import 'moment/locale/ko';
 
 const App = class extends React.Component {
   constructor(props) {
@@ -12,18 +14,16 @@ const App = class extends React.Component {
     };
   }
 
-  addNote = (title, content) => {
-    console.log(title, content);
+  addNote = (newTitle, newContent) => {
+    console.log(moment().format('YYYY-MM-DD HH:mm:ss'));
     this.setState({
       notes: [
         ...this.state.notes,
         {
           id: this.state.notes.length + 1,
-          title: title,
-          content: content,
-          // title: this.state.title,
-          // content: this.state.content,
-          createdAt: new Date().toString(),
+          title: newTitle,
+          content: newContent,
+          createdAt: moment().format('YY년 MM월 DD일 HH:mm:ss'),
         },
       ],
     });

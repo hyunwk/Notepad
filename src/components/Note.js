@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactMarkdown from 'react-markdown'
 
 const Note = class extends Component {
   constructor(props) {
@@ -58,8 +59,10 @@ const Note = class extends Component {
           </div>
         ) : (
           <div>
-            <p>{this.props.note.content}</p>
-            <h2>{this.props.note.title}</h2>
+            <ReactMarkdown>{this.props.note.content}</ReactMarkdown>
+            <ReactMarkdown>{this.props.note.title}</ReactMarkdown>
+            {/* <p>{this.props.note.content}</p>
+            <h2>{this.props.note.title}</h2> */}
           </div>
         )}
         {/* 저장 / 수정 버튼 */}
